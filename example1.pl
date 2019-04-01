@@ -3,7 +3,11 @@
 $| = 1;
 undef $/;
 
-my $in_file = "C:\\Galina_TR\\perl\\test_file\\test.txt";
+if ($#ARGV < 0)
+{
+	usage();
+}
+my $in_file = $ARGV[0];
 my $out_file = $in_file."out";
 
 open (IN, "<$in_file");
@@ -16,3 +20,13 @@ print $content."\n";
 open (OUT, ">$out_file");
 print OUT $content;
 close (OUT);
+exit 0;
+
+sub usage 
+{
+	print "*********\nUsage:\n";
+	print "example1.pl <input_file>\n";
+	print "Example:\n";
+	print "example.pl test.txt\n*********\n";	
+	exit 0;
+}
