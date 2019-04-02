@@ -11,9 +11,13 @@ if ($#ARGV < 0)
 	usage();
 }
 
-my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime();
-$year =~ s/^1/20/;
-print "Time: $hour:$min:$sec $mday/$mon/$year\n";
+my $mytime= sub{
+	my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime();
+	$year =~ s/^1/20/;
+	return "$hour:$min:$sec $mday/$mon/$year";
+};
+
+print "Time start: ".&$mytime()."\n";
 
 my $in_file = $ARGV[0];
 my $out_file = $in_file."out";
@@ -28,22 +32,26 @@ open (IN, "<$in_file");
 my $content = <IN>;
 close (IN);
 
-$content=process_file($in_file, $content);
+$content=process_file($in_file, \$content);
 
 open (OUT, ">$out_file");
 print OUT $content;
 close (OUT);
+
+#sleep (3);
+print "Time start: ".&$mytime()."\n";
+
 exit 0;
 
 sub process_file
 {
 	my($file_name,$cont)=@_;
 	
-	my $counter = ($cont =~ s/bookpart/BOOKPART/sg);
-	print $cont."\n";
+	my $counter = (${$cont} =~ s/bookpart/BOOKPART/sg);
+	print ${$cont}."\n";
 	print "There were $counter replacements in $file_name\n";
 	
-	return $cont;
+	return ${$cont};
 }
 
 sub usage 
