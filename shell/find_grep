@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#finds html files, greps the content, outputs file name into a file
+
+file_list="res.txt"
+
+find /sandbox/src/*/* -name "*.html" -print | xargs grep -l "Galina|Michael" > $file_list
+
+#replaces contents of the listed files and creates a list of updated files
+while read -r line; do
+    #uppercase Galina|Michael
+    sed 's/(Galina|Michael)/\U$1\E/g' $line
+    echo "Updated file $line" | tee -a res_updated.txt 
+done < $file_list
