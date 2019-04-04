@@ -32,14 +32,14 @@ open (IN, "<$in_file");
 my $content = <IN>;
 close (IN);
 
-$content=process_file($in_file, \$content);
+process_file($in_file, \$content);
 
 open (OUT, ">$out_file");
 print OUT $content;
 close (OUT);
 
 #sleep (3);
-print "Time start: ".&$mytime()."\n";
+print "Time end: ".&$mytime()."\n";
 
 exit 0;
 
@@ -50,8 +50,6 @@ sub process_file
 	my $counter = (${$cont} =~ s/bookpart/BOOKPART/sg);
 	print ${$cont}."\n";
 	print "There were $counter replacements in $file_name\n";
-	
-	return ${$cont};
 }
 
 sub usage 
