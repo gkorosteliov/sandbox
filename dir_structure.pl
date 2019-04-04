@@ -32,7 +32,7 @@ sub startHome
 			if ( (-d $jurs_dir.$jur.$path) && ($path ne ".") && ($path ne ".." ))
 			{
 				$path = $jurs_dir.$jur.$path;
-				$cmdexe = system("cd ".$out_dir."; co ".$path);
+				$cmdexe = system("cd ".$out_dir."; co ".$path); #process dir
 				print LOG_FILE $path."\n";
 				$cmdexe = system("echo '********************************************' >> ".$log_file_dir."/".$result_file);
 				$cmdexe = system("echo '".$path."' >> ".$log_file_dir."/".$result_file);
