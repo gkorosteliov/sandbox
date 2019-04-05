@@ -1,0 +1,9 @@
+perl -p -e "s/\s*(\w+).*/$1/;" test.dat
+
+#which is equivalent to:
+
+while (<>) {
+    s/\s*(\w+).*/$1/;
+} continue {
+    print;
+}
